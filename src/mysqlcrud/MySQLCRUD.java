@@ -15,39 +15,43 @@ import javax.swing.table.DefaultTableModel;
  * @author retsa
  */
 public class MySQLCRUD extends javax.swing.JFrame {
-    private DefaultTableModel TableModelKaryawan;
+    
+    private DefaultTableModel DftTblModelCourse;
     private String SQL;
     
-    public void TampilData() {
-        TableModelKaryawan = new DefaultTableModel();
-        TableModelKaryawan.addColumn("ID");
-        TableModelKaryawan.addColumn("First Name");
-        TableModelKaryawan.addColumn("Last Name");
-        TableModelKaryawan.addColumn("Age");
-        jTableKaryawan.setModel(TableModelKaryawan);
+    public void ShowData() {
+        DftTblModelCourse = new DefaultTableModel();
+        DftTblModelCourse.addColumn("course_name");
+        DftTblModelCourse.addColumn("course_number");
+        DftTblModelCourse.addColumn("enrollment");
+        DftTblModelCourse.addColumn("start_date");
+        DftTblModelCourse.addColumn("end_date");
+        jTableCourses.setModel(DftTblModelCourse);
         Connection conn = Conn.getConnection();
         try {
             java.sql.Statement stmt = conn.createStatement();
-            SQL = "SELECT * FROM users";
+            SQL = "SELECT * FROM courses";
             java.sql.ResultSet res = stmt.executeQuery(SQL);
             while (res.next()) {
-                TableModelKaryawan.addRow(new Object[]{
-                    res.getString("id"),
-                    res.getString("fnama"),
-                    res.getString("lnama"),
-                    res.getString("age")
+                DftTblModelCourse.addRow(new Object[]{
+                    res.getString("course_name"),
+                    res.getString("course_number"),
+                    res.getString("enrollment"),
+                    res.getString("start_date"),
+                    res.getString("end_date"),
                 });
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+       
     
     public MySQLCRUD() {
         initComponents();
-        this.TampilData();
+        this.ShowData();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,27 +61,30 @@ public class MySQLCRUD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jTextFieldID = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jTextField_id = new javax.swing.JTextField();
+        jLabelTitle = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableKaryawan = new javax.swing.JTable();
-        jview = new javax.swing.JButton();
-        jButtonSave = new javax.swing.JButton();
-        jButtonEdit = new javax.swing.JButton();
+        jTableCourses = new javax.swing.JTable();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
-        jTextFieldFirstName = new javax.swing.JTextField();
-        jTextFieldLastName = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextFieldAge = new javax.swing.JTextField();
+        jTextFieldCourseName = new javax.swing.JTextField();
+        jTextFieldCourseNumber = new javax.swing.JTextField();
+        jLabelCourseNameLabel = new javax.swing.JLabel();
+        jLabelCourseNumberLabel = new javax.swing.JLabel();
+        jLabelEndDateLabel = new javax.swing.JLabel();
+        jTextFieldEndDate = new javax.swing.JTextField();
+        jLabelStartDateLabel = new javax.swing.JLabel();
+        jTextFieldStartDate = new javax.swing.JTextField();
+        jLabelEnrollmentLabel = new javax.swing.JLabel();
+        jTextFieldEnrollment = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Liberation Sans", 0, 26)); // NOI18N
-        jLabel1.setText("Data Karyawan");
+        jLabelTitle.setFont(new java.awt.Font("Liberation Sans", 0, 26)); // NOI18N
+        jLabelTitle.setText("DAFTAR JENIS KURSUS");
 
-        jTableKaryawan.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCourses.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,46 +95,43 @@ public class MySQLCRUD extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTableKaryawan.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableCourses.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableKaryawanMouseClicked(evt);
+                jTableCoursesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableKaryawan);
+        jScrollPane1.setViewportView(jTableCourses);
 
-        jview.setText("Baru");
-        jview.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAdd.setText("Add");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jviewActionPerformed(evt);
+                jButtonAddActionPerformed(evt);
             }
         });
 
-        jButtonSave.setText("Simpan");
-        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+        jButtonUpdate.setText("Update");
+        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSaveActionPerformed(evt);
+                jButtonUpdateActionPerformed(evt);
             }
         });
 
-        jButtonEdit.setText("Edit");
-        jButtonEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonEditActionPerformed(evt);
-            }
-        });
-
-        jButtonDelete.setText("Hapus");
+        jButtonDelete.setText("Delete");
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("First Name");
+        jLabelCourseNameLabel.setText("Course Name");
 
-        jLabel3.setText("Last Name");
+        jLabelCourseNumberLabel.setText("Course Number");
 
-        jLabel4.setText("Age");
+        jLabelEndDateLabel.setText("End Date");
+
+        jLabelStartDateLabel.setText("Start Date");
+
+        jLabelEnrollmentLabel.setText("Enrollment");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,157 +139,201 @@ public class MySQLCRUD extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTitle)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jview)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldAge)
-                                    .addComponent(jTextFieldLastName)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButtonSave)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonEdit)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButtonDelete)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jTextFieldFirstName))))
-                        .addContainerGap(53, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCourseNameLabel)
+                            .addComponent(jLabelEndDateLabel)
+                            .addComponent(jLabelStartDateLabel)
+                            .addComponent(jLabelEnrollmentLabel)
+                            .addComponent(jLabelCourseNumberLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jButtonAdd)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldCourseNumber)
+                            .addComponent(jTextFieldEnrollment)
+                            .addComponent(jTextFieldEndDate)
+                            .addComponent(jTextFieldCourseName)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addComponent(jButtonDelete)
+                                .addGap(56, 56, 56)
+                                .addComponent(jButtonUpdate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTextFieldStartDate, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addComponent(jLabelTitle)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jTextFieldCourseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCourseNameLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldCourseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCourseNumberLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldEnrollment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelEnrollmentLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextFieldAge, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelStartDateLabel)
+                    .addComponent(jTextFieldStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelEndDateLabel)
+                    .addComponent(jTextFieldEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jview)
-                    .addComponent(jButtonSave)
-                    .addComponent(jButtonEdit)
-                    .addComponent(jButtonDelete))
-                .addGap(18, 18, 18)
+                    .addComponent(jButtonUpdate)
+                    .addComponent(jButtonDelete)
+                    .addComponent(jButtonAdd))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>                        
 
-    private void jviewActionPerformed(java.awt.event.ActionEvent evt) {                                      
-        // TODO add your handling code here:
-    }                                     
-
-    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {                                           
         try {
             Connection conn = Conn.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("insert into users(fnama, lnama, age) values(?,?,?)");
-            stmt.setString(1, jTextFieldFirstName.getText());
-            stmt.setString(2, jTextFieldLastName.getText());
-            stmt.setString(3, jTextFieldAge.getText());
+            PreparedStatement stmt = conn.prepareStatement("insert into courses(course_name, course_number, enrollment, start_date, end_date) values(?,?,?,?,?)");
+            stmt.setString(1, jTextFieldCourseName.getText());
+            stmt.setString(2, jTextFieldCourseNumber.getText());
+            stmt.setString(3, jTextFieldEnrollment.getText());
+            stmt.setString(4, jTextFieldStartDate.getText());
+            stmt.setString(5, jTextFieldEndDate.getText());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan", "Pesan", JOptionPane.INFORMATION_MESSAGE);
-            TampilData();
+            jTextFieldCourseName.setText("");
+            jTextFieldCourseNumber.setText("");
+            jTextFieldEnrollment.setText("");
+            jTextFieldStartDate.setText("");
+            jTextFieldEndDate.setText("");
+            jTextField_id.requestFocus();
+            ShowData();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }                                              
+    }                                          
 
-    private void jTableKaryawanMouseClicked(java.awt.event.MouseEvent evt) {                                             
+    private void jTableCoursesMouseClicked(java.awt.event.MouseEvent evt) {                                           
 
-        int baris = jTableKaryawan.getSelectedRow();
-        jTextFieldID.setText(TableModelKaryawan.getValueAt(baris, 0).toString());
-        jTextFieldFirstName.setText(TableModelKaryawan.getValueAt(baris, 1).toString());
-        jTextFieldLastName.setText(TableModelKaryawan.getValueAt(baris, 2).toString());
-        jTextFieldAge.setText(TableModelKaryawan.getValueAt(baris, 3).toString());
-    }                                            
+        int baris = jTableCourses.getSelectedRow();
+        jTextField_id.setText(DftTblModelCourse.getValueAt(baris, 1).toString());
+        jTextFieldCourseName.setText(DftTblModelCourse.getValueAt(baris, 0).toString());
+        jTextFieldCourseNumber.setText(DftTblModelCourse.getValueAt(baris, 1).toString());
+        jTextFieldEnrollment.setText(DftTblModelCourse.getValueAt(baris, 2).toString());
+        jTextFieldStartDate.setText(DftTblModelCourse.getValueAt(baris, 3).toString());
+        jTextFieldEndDate.setText(DftTblModelCourse.getValueAt(baris, 4).toString());
+    }                                          
 
-    private void jButtonEditActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
         try {
             Connection conn = Conn.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("update users set fnama=?, lnama=?, age=? where id=?");
-            stmt.setString(1, jTextFieldFirstName.getText());
-            stmt.setString(2, jTextFieldLastName.getText());
-            stmt.setString(3, jTextFieldAge.getText());
-            stmt.setString(4, jTextFieldID.getText());
+            PreparedStatement stmt = conn.prepareStatement("update courses set course_name=?, course_number=?, enrollment=?, start_date=?, end_date=? where course_number=?");
+            stmt.setString(1, jTextFieldCourseName.getText());
+            stmt.setString(2, jTextFieldCourseNumber.getText());
+            stmt.setString(3, jTextFieldEnrollment.getText());
+            stmt.setString(4, jTextFieldStartDate.getText());
+            stmt.setString(5, jTextFieldEndDate.getText());
+            stmt.setString(6, jTextField_id.getText());
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data berhasil diubah", "Pesan", JOptionPane.INFORMATION_MESSAGE);
-            TampilData();
+            ShowData();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }                                            
+    }                                             
 
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
         Connection conn = Conn.getConnection();
-        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data tersebut?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int confirm = JOptionPane.showConfirmDialog(null, "Apakah anda yakin ingin menghapus data kursus tersebut?", "Konfirmasi", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (confirm == 0) {
             try {
-                java.sql.PreparedStatement stmt = conn.prepareStatement("delete from users where id ='" + jTextFieldID.getText() + "'");
+                java.sql.PreparedStatement stmt = conn.prepareStatement("delete from courses where course_number ='" + jTextField_id.getText() + "'");
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Data berhasil dihapus", "Pesan", JOptionPane.INFORMATION_MESSAGE);
-                TampilData();
-                jTextFieldFirstName.setText("");
-                jTextFieldLastName.setText("");
-                jTextFieldAge.setText("");
-                jTextFieldID.requestFocus();
+                ShowData();
+                jTextFieldCourseName.setText("");
+                jTextFieldCourseNumber.setText("");
+                jTextFieldEnrollment.setText("");
+                jTextFieldStartDate.setText("");
+                jTextFieldEndDate.setText("");
+                jTextField_id.requestFocus();
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data gagal di hapus" + e.getMessage(), "Pesan", JOptionPane.ERROR_MESSAGE);
             }
         }
 
-    }   
+    }                                             
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MySQLCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MySQLCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MySQLCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MySQLCRUD.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MySQLCRUD().setVisible(true);
             }
         });
     }
-    
+
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButtonEdit;
+    private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonDelete;
-    private javax.swing.JButton jButtonSave;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JLabel jLabelCourseNameLabel;
+    private javax.swing.JLabel jLabelCourseNumberLabel;
+    private javax.swing.JLabel jLabelEndDateLabel;
+    private javax.swing.JLabel jLabelEnrollmentLabel;
+    private javax.swing.JLabel jLabelStartDateLabel;
+    private javax.swing.JLabel jLabelTitle;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableKaryawan;
-    private javax.swing.JTextField jTextFieldAge;
-    private javax.swing.JTextField jTextFieldFirstName;
-    private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldLastName;
-    private javax.swing.JButton jview;
-    // End of variables declaration 
+    private javax.swing.JTable jTableCourses;
+    private javax.swing.JTextField jTextFieldCourseName;
+    private javax.swing.JTextField jTextFieldCourseNumber;
+    private javax.swing.JTextField jTextFieldEndDate;
+    private javax.swing.JTextField jTextFieldEnrollment;
+    private javax.swing.JTextField jTextFieldStartDate;
+    private javax.swing.JTextField jTextField_id;
+    // End of variables declaration                   
     
 }
